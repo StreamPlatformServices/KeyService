@@ -1,0 +1,6 @@
+@KeyService_HostAddress = http://localhost:5076
+
+GET {{KeyService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
