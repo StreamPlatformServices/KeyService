@@ -5,13 +5,13 @@ namespace KeyService.DataMappers
 {
     public static class KeyDataMapper
     {
-        public static KeyData ToKeyData(this ContentEncryptionKeyRequestModel model)
+        public static KeyData ToKeyData(this ContentEncryptionKeyRequestModel model, byte[] key)
         {
             return new KeyData
             {
                 Uuid = Guid.NewGuid(),
                 FileId = model.FileId,
-                Key = [0x64,0xAB, 0x44, 0x54, 0x64, 0xAB, 0x44, 0x54], //TODO: NOW!!!!!!!!! Create modeule for creating secure AES symetric keys !!!!!!!!
+                Key = key
             };
         }
         

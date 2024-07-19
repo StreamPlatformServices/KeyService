@@ -1,3 +1,4 @@
+using KeyService.Encryption;
 using KeyService.Persistance;
 using KeyService.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<KeyDatabaseContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddTransient<IEncryptionKeyGenerator, EncryptionKeyGenerator>();
 builder.Services.AddScoped<IKeyRepository, KeyRepository>();
 
 builder.Services.AddControllers();

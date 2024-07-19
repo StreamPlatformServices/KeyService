@@ -1,4 +1,5 @@
 using KeyService.DataMappers;
+using KeyService.Encryption;
 using KeyService.Models;
 using KeyService.Persistance.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,15 @@ namespace KeyService.Controllers
     {
         private readonly ILogger<KeyController> _logger;
         private readonly IKeyRepository _keyRepository;
+        private readonly IEncryptionKeyGenerator _keyGenerator;
         public KeyController(
             ILogger<KeyController> logger,
-            IKeyRepository keyRepository)
+            IKeyRepository keyRepository,
+            IEncryptionKeyGenerator keyGenerator)
         {
             _logger = logger;
             _keyRepository = keyRepository;
+            _keyGenerator = keyGenerator;
         }
        
         [HttpGet("{fileId}")]
@@ -47,7 +51,9 @@ namespace KeyService.Controllers
         {
             _logger.LogInformation($"Start add new key procedure for file: {keyRequestModel.FileId}.");
 
-            var result = await _keyRepository.CreateAsync(keyRequestModel.ToKeyData());
+            var key = _keyGenerator.CreateEncryptionKey();
+
+            var result = await _keyRepository.CreateAsync(keyRequestModel.ToKeyData(key));
 
             if (result == ResultStatus.Conflict)
             {
