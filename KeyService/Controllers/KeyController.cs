@@ -25,7 +25,7 @@ namespace KeyService.Controllers
         }
        
         [HttpGet("{fileId}")]
-        public async Task<IActionResult> GetkeyByfileIdAsync(Guid fileId)
+        public async Task<IActionResult> GetKeyByfileIdAsync(Guid fileId)
         {
             _logger.LogInformation("Start get key by file id procedure.");
 
@@ -47,13 +47,13 @@ namespace KeyService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddkeyAsync(ContentEncryptionKeyRequestModel keyRequestModel)
+        public async Task<IActionResult> AddKeyAsync(ContentEncryptionKeyRequestModel keyRequestModel)
         {
             _logger.LogInformation($"Start add new key procedure for file: {keyRequestModel.FileId}.");
 
-            var key = _keyGenerator.CreateEncryptionKey();
+            var encryptionKey = _keyGenerator.CreateEncryptionKey();
 
-            var result = await _keyRepository.CreateAsync(keyRequestModel.ToKeyData(key));
+            var result = await _keyRepository.CreateAsync(keyRequestModel.ToKeyData(encryptionKey.Key, encryptionKey.IV));
 
             if (result == ResultStatus.Conflict)
             {

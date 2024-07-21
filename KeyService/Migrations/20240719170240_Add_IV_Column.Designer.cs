@@ -3,6 +3,7 @@ using System;
 using KeyService.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KeyService.Migrations
 {
     [DbContext(typeof(KeyDatabaseContext))]
-    partial class KeyDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240719170240_Add_IV_Column")]
+    partial class Add_IV_Column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");

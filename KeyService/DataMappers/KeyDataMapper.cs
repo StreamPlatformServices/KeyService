@@ -5,13 +5,14 @@ namespace KeyService.DataMappers
 {
     public static class KeyDataMapper
     {
-        public static KeyData ToKeyData(this ContentEncryptionKeyRequestModel model, byte[] key)
+        public static KeyData ToKeyData(this ContentEncryptionKeyRequestModel model, byte[] key, byte[] iv)
         {
             return new KeyData
             {
                 Uuid = Guid.NewGuid(),
                 FileId = model.FileId,
-                Key = key
+                Key = key,
+                IV = iv,
             };
         }
         
@@ -21,7 +22,7 @@ namespace KeyService.DataMappers
             {
                 Uuid = data.Uuid,
                 FileId = data.FileId,
-                Key = data.Key
+                EncryptionKey = new EncryptionKeyModel { Key =  data.Key, IV = data.IV },
             };
         }
     }

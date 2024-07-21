@@ -11,5 +11,6 @@ namespace KeyService.Persistance.Data
         public Guid Uuid { get; set; }
         public Guid FileId { get; set; }
         public byte[] Key { get; set; }
+        public byte[] IV { get; set; }
     }
 }

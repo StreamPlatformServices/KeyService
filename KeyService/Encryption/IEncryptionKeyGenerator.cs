@@ -1,7 +1,9 @@
-﻿namespace KeyService.Encryption
+﻿using KeyService.Models;
+
+namespace KeyService.Encryption
 {
     public interface IEncryptionKeyGenerator
     {
-        byte[] CreateEncryptionKey();
+        EncryptionKeyModel CreateEncryptionKey();
     }
 }
