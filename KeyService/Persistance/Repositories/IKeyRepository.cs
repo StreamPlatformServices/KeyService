@@ -7,6 +7,7 @@ namespace KeyService.Persistance.Repositories
     {
         Task<(ResultStatus Status, KeyData Data)> GetByFileIdAsync(Guid fileId);
         Task<ResultStatus> CreateAsync(KeyData keyData);
+        Task<ResultStatus> DeleteAsync(Guid fileId);
 
         //Task<ResultStatus> UpdateAsync(Guid uuid, KeyData licenseData);
         //Task<ResultStatus> DeleteAsync(Guid uuid);

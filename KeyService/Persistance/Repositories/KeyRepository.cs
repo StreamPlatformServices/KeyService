@@ -70,6 +70,21 @@ namespace KeyService.Persistance.Repositories
 
             return ResultStatus.Failed;
         }
-        
+
+        public async Task<ResultStatus> DeleteAsync(Guid fileId)
+        {
+            var content = await _keyDatabaseContext.Keys.FirstOrDefaultAsync(e => e.FileId == fileId);
+            if (content == null)
+            {
+                _logger.LogError($"Key with file id: {fileId} not found!");
+                return ResultStatus.NotFound;
+            }
+
+            //TODO: Try catch
+            _keyDatabaseContext.Keys.Remove(content); //TODO: How many state entries should return when successfull?
+            await _keyDatabaseContext.SaveChangesAsync();
+
+            return ResultStatus.Success;
+        }
     }
 }

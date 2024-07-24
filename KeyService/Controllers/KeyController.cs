@@ -68,5 +68,27 @@ namespace KeyService.Controllers
             _logger.LogInformation($"Finished successfully add new key procedure for file: {keyRequestModel.FileId}."); //TODO: Log id in the rest of endpoints??
             return Ok();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteKeyByfileIdAsync(ContentEncryptionKeyRequestModel keyRequestModel)
+        {
+            _logger.LogInformation("Start delete key by file id procedure.");
+
+            var result = await _keyRepository.DeleteAsync(keyRequestModel.FileId);
+
+            if (result == ResultStatus.NotFound)
+            {
+                return NotFound();
+            }
+
+            if (result == ResultStatus.Failed)
+            {
+                _logger.LogError("An unexpected error occurred while delete key.");
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
+            _logger.LogInformation("Finished successfully delete key by file id procedure.");
+            return Ok();
+        }
     }
 }
