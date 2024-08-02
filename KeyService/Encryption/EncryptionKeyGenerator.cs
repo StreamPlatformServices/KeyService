@@ -10,6 +10,7 @@ namespace KeyService.Encryption
         {
             using (var aes = Aes.Create())
             {
+                aes.Mode = CipherMode.CFB;
                 aes.KeySize = KEY_SIZE;
                 aes.GenerateKey();
                 aes.GenerateIV();
